@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { COMPANY } from '@/lib/config';
@@ -8,6 +8,15 @@ import WhatsAppFAB from '@/components/WhatsAppFAB';
 import MobileStickyCTA from '@/components/MobileStickyCTA';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: 'cover',
+  themeColor: '#091630',
+};
 
 export const metadata: Metadata = {
   title: COMPANY.seo.title,
@@ -61,16 +70,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen flex flex-col bg-white text-charcoal antialiased overflow-x-hidden selection:bg-orange/20 selection:text-orange-dark`}>
         <Navbar />
-        <main>{children}</main>
+        {/* pb-20 md:pb-0 ensures mobile sticky bar never overlaps footer or forms */}
+        <main className="flex-1 pb-20 md:pb-0">{children}</main>
         <Footer />
         <WhatsAppFAB />
         <MobileStickyCTA />
