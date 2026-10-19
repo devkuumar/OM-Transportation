@@ -1,0 +1,251 @@
+# PRODUCT REQUIREMENTS DOCUMENT (PRD)
+## OM Transport Service & Commission Agent Website
+
+## 1. Product Overview
+
+Product: Official business website for OM Transport Service & Commission Agent.
+
+Business:
+- Legal Name: RAHUL KUMAR
+- Trade Name: OM TRANSPORT SERVICE AND COMMISSION AGENT
+- Proprietorship
+- Proprietor: Rahul Kumar
+- GSTIN: 09DUMPK2053N1Z3
+- Location: Aligarh–Kanpur Road, Near Nayara Petrol Pump, Panethi, Aligarh, Uttar Pradesh 202002
+- Phone: +91 9897270966 / +91 7037870966
+- Service positioning: transportation and commission-agent services
+- Advertised vehicle options: 14 ft, 17 ft, 19 ft, 20 ft, 22 ft and Tata Ace
+- Business messaging: Full Load, Part Load, Special Vehicles, Timely Delivery, All India Service
+
+## 2. Problem
+
+The business currently relies heavily on offline visibility, phone communication, physical signage and word-of-mouth. Potential customers have no strong digital destination where they can:
+- Understand services
+- See vehicle options
+- Submit transport requirements
+- Contact the business quickly
+- Find the office
+- Understand the commission-agent service
+- Join the business as a transport partner
+
+## 3. Product Goal
+
+Create a professional, fast, mobile-first website that turns visitors into:
+1. Transport enquiries
+2. WhatsApp conversations
+3. Phone calls
+4. Quote requests
+5. Vehicle-partner leads
+
+## 4. Target Users
+
+### Customer A: Individual / Small Business
+Needs a truck for moving goods.
+
+### Customer B: SME / B2B Buyer
+Needs recurring full-load or part-load transportation.
+
+### Customer C: Industrial Customer
+Needs commercial/special vehicle arrangements.
+
+### Customer D: Vehicle Owner
+Owns a truck and wants transportation opportunities.
+
+### Customer E: Local Search User
+Finds OM Transport through Google/local search and needs contact/location information.
+
+## 5. Core User Journeys
+
+### Journey 1: Request a Truck
+Home → Vehicle Options → Select Vehicle → Transport Form → WhatsApp/Call
+
+### Journey 2: General Enquiry
+Home → WhatsApp → Pre-filled enquiry
+
+### Journey 3: Find Office
+Contact → Map → Get Directions
+
+### Journey 4: Partner
+Partner With Us → Partner Form → Submission
+
+### Journey 5: Business Customer
+Home → Services → Get Quote → Quote Form → Contact
+
+## 6. Functional Requirements
+
+### FR-01 Homepage
+The system shall display:
+- Company name
+- Hero CTA
+- Services
+- Vehicle options
+- Service coverage
+- Contact options
+
+### FR-02 Vehicle Options
+The system shall display:
+- 14 FT
+- 17 FT
+- 19 FT
+- 20 FT
+- 22 FT
+- Tata Ace
+
+The system shall not invent payload or technical specifications.
+
+### FR-03 Transport Quote
+The system shall provide a quote/request form with:
+- Customer name
+- Company
+- Phone
+- WhatsApp
+- Email
+- Pickup
+- Delivery
+- Date
+- Vehicle
+- Load type
+- Cargo type
+- Weight
+- Dimensions
+- Notes
+
+### FR-04 Vehicle-Specific Request
+Selecting a vehicle shall pre-fill the vehicle requirement in the form.
+
+### FR-05 WhatsApp
+The website shall create a pre-filled WhatsApp enquiry.
+
+### FR-06 Phone
+Phone numbers shall be clickable.
+
+### FR-07 Maps
+The website shall provide the client Google Maps location.
+
+### FR-08 Services
+Display:
+- Full Load
+- Part Load
+- Special Vehicle Arrangement
+- Commission Agent
+- Local Transportation
+- Long-Distance Transportation
+- All India Service
+- Business/Commercial Transport
+
+### FR-09 Partner Registration
+Provide a form for commercial vehicle owners.
+
+### FR-10 Gallery
+Use client-provided office/business photographs.
+
+### FR-11 Business Information
+Display verified legal/trade/GST/location information.
+
+### FR-12 Responsive Design
+Support mobile, tablet and desktop.
+
+## 7. Non-Functional Requirements
+
+### Performance
+- Fast initial load
+- Optimized images
+- Lazy loading
+- Responsive image formats
+- Good Core Web Vitals
+
+### Security
+- Server-side validation
+- Rate limiting
+- Anti-spam
+- Secure secrets
+- No exposed private API keys
+
+### Accessibility
+- Semantic HTML
+- Keyboard navigation
+- Labels
+- Alt text
+- Contrast
+- Focus states
+
+### SEO
+- LocalBusiness schema
+- Metadata
+- Sitemap
+- Robots.txt
+- Canonicals
+- Local search optimization
+
+## 8. Design Requirements
+
+Style:
+- Industrial
+- Premium
+- Trustworthy
+- Modern
+- Indian logistics/business aesthetic
+
+Colors:
+- Deep navy
+- Charcoal
+- White/light gray
+- Orange/red-orange accent
+
+Use real business images as primary visual assets.
+
+## 9. Content Requirements
+
+Do not invent:
+- Fleet count
+- Years of experience
+- Payloads
+- Awards
+- Reviews
+- Certifications
+- Customer counts
+- Revenue
+- Branches
+
+Unknown information must be omitted or marked for later confirmation.
+
+## 10. Conversion Requirements
+
+Primary CTAs:
+- Call Now
+- WhatsApp
+- Request a Vehicle
+- Get a Quote
+- Partner With Us
+
+Mobile sticky CTA:
+Call | WhatsApp | Request
+
+## 11. Future Expansion
+
+Architecture should support:
+- Fleet database
+- Availability
+- CRM
+- Partner database
+- Quote generation
+- Customer accounts
+- Partner accounts
+- Online booking
+- Tracking
+- Admin dashboard
+- Multi-city expansion
+
+## 12. Success Metrics
+
+Track:
+- Phone clicks
+- WhatsApp clicks
+- Quote submissions
+- Vehicle enquiries
+- Partner submissions
+- Directions clicks
+- Contact submissions
+
+Primary success metric:
+Qualified transport enquiries generated through the website.

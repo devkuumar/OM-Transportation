@@ -1,0 +1,518 @@
+OM TRANSPORT SERVICE & COMMISSION AGENT
+PRODUCTION WEBSITE MASTER PROMPT FOR ANTIGRAVITY
+
+Build a professional, premium, mobile-first website for:
+
+OM TRANSPORT SERVICE & COMMISSION AGENT
+
+The business is a proprietorship operated by Rahul Kumar and is based in Panethi, Aligarh, Uttar Pradesh.
+
+This is NOT a generic truck-template website. Represent the actual business, its real location, real services, vehicle offerings, office photographs, GST registration information, and expansion plans.
+
+PRIMARY GOAL:
+Generate genuine transportation enquiries through phone, WhatsApp, and a transport-request form.
+
+VERIFIED BUSINESS INFORMATION
+- Legal Name: RAHUL KUMAR
+- Trade Name: OM TRANSPORT SERVICE AND COMMISSION AGENT
+- Business Constitution: Proprietorship
+- Proprietor: Rahul Kumar
+- GSTIN: 09DUMPK2053N1Z3
+- GST Registration: Regular
+- GST validity: From 30/01/2026
+- Principal Place of Business: Aligarh Kanpur Road, Near Nayara Petrol Pump, Panethi, District Aligarh, Uttar Pradesh, PIN 202002
+- GST jurisdiction: ALIGARH-I
+- Primary phone: +91 9897270966
+- Secondary phone: +91 7037870966
+- Google Maps: https://maps.app.goo.gl/dinot76ZDZD8N1aU9?g_st=aw
+
+IMPORTANT:
+Do not modify the GSTIN. Do not invent another legal name. Do not invent branches, fleet size, years of experience, customer counts, awards, certifications, reviews, revenue, routes, or government contracts.
+
+BUSINESS POSITIONING
+Position OM Transport as a reliable transportation and commission-agent service helping customers and businesses arrange suitable commercial vehicles for goods transportation.
+
+Business concepts supported by the supplied materials:
+- Transport Service
+- Commission Agent
+- All India Service
+- Full Load
+- Part Load
+- Special Vehicles
+- Timely Delivery
+- Commercial Truck Transportation
+- Vehicle arrangement
+- 14 ft, 17 ft, 19 ft, 20 ft and 22 ft vehicle options
+- Tata Ace
+- 24-hour enquiry/service availability
+
+Do not claim that all vehicles are company-owned.
+
+DESIGN
+Create a strong Indian transportation/logistics visual identity:
+- Professional
+- Industrial
+- Trustworthy
+- Premium
+- Clean
+- Modern
+- Mobile-first
+
+Suggested palette:
+- Deep Navy / Dark Blue
+- Charcoal / Black
+- Safety Orange / Red-Orange
+- White / Light Gray
+- Dark Charcoal text
+
+The existing physical branding uses red/orange, blue and white. Modernize it while retaining recognition.
+
+Avoid:
+- Cheap-looking templates
+- Cartoon graphics
+- Excessive gradients
+- Excessive animation
+- Fake stock-truck imagery when client images are available
+
+HOMEPAGE
+Recommended order:
+1. Top contact bar
+2. Hero
+3. Quick business facts
+4. Services
+5. Vehicle options
+6. Transport quote
+7. Full Load / Part Load
+8. Commission Agent
+9. Why Choose OM Transport
+10. How It Works
+11. Service Area
+12. Office / Business Gallery
+13. Partner With Us
+14. Business Expansion
+15. Contact / Map
+16. Footer
+
+HERO
+Headline:
+OM TRANSPORT
+SERVICE & COMMISSION AGENT
+
+Supporting headline:
+Reliable Transportation Solutions for Full Load, Part Load & Special Vehicle Requirements
+
+Supporting copy:
+Based in Panethi, Aligarh, OM Transport Service & Commission Agent helps customers and businesses arrange suitable commercial transportation for local, long-distance and all-India requirements.
+
+Primary CTA:
+REQUEST A VEHICLE
+
+Secondary CTA:
+WHATSAPP US
+
+Third CTA:
+CALL NOW
+
+Use the client's real office/truck photographs.
+
+QUICK INFORMATION
+Show:
+- PANETHI, ALIGARH
+- ALL INDIA SERVICE
+- FULL & PART LOAD
+- SPECIAL VEHICLES
+- 24-HOUR ENQUIRY
+
+Vehicle options:
+14 FT | 17 FT | 19 FT | 20 FT | 22 FT
+Also:
+TATA ACE
+
+ABOUT
+Explain that OM Transport Service & Commission Agent is a transportation business based in Panethi, Aligarh, providing transportation assistance and vehicle-arrangement services for customers requiring commercial vehicles for goods movement.
+
+Explain the commission-agent model simply:
+OM Transport can help connect transportation requirements with suitable vehicle availability through its network.
+
+SERVICES
+Create cards for:
+1. Full Load Transport
+2. Part Load Transport
+3. Special Vehicle Arrangement
+4. Commission Agent Services
+5. Local Transportation
+6. Long-Distance Transportation
+7. All India Transport Service
+8. Business / Commercial Transport
+
+For all-India service, use responsible wording:
+"Transportation arrangements available across India subject to vehicle availability and route requirements."
+
+FLEET / VEHICLE OPTIONS
+Show:
+- 14 FT
+- 17 FT
+- 19 FT
+- 20 FT
+- 22 FT
+- TATA ACE
+
+Each card:
+- Vehicle category
+- Length
+- Suitable for
+- Availability
+- REQUEST THIS VEHICLE
+
+CRITICAL:
+Do NOT invent payload, GVW, exact dimensions, axle count, or model information from photographs. Add technical specifications only after client confirmation.
+
+TRANSPORT REQUEST / QUOTE FORM
+Fields:
+- Full Name
+- Company Name
+- Mobile Number
+- WhatsApp Number
+- Email
+- Pickup Location
+- Delivery Location
+- Preferred Pickup Date
+- Vehicle Type
+- Full Load / Part Load
+- Cargo Type
+- Approximate Weight
+- Cargo Dimensions
+- Number of Vehicles
+- Special Requirements
+- Additional Message
+
+CTA:
+GET QUOTE / REQUEST VEHICLE
+
+After submission:
+- Validate
+- Show confirmation
+- Provide WhatsApp/call fallback
+- Prevent spam
+- Secure submitted data
+
+WHATSAPP
+Use +91 9897270966 as the primary WhatsApp CTA unless the client changes it.
+
+Pre-filled message:
+Hello OM Transport Service & Commission Agent,
+
+I need a vehicle for transportation.
+
+Pickup:
+[location]
+
+Delivery:
+[location]
+
+Vehicle Required:
+[vehicle]
+
+Load Type:
+[full/part]
+
+Please provide availability and quotation.
+
+Thank you.
+
+CALL
+Use:
++91 9897270966
++91 7037870966
+
+Make both clickable on mobile.
+
+SERVICE AREA
+Primary base:
+Panethi, Aligarh, Uttar Pradesh
+
+Communicate:
+ALL INDIA SERVICE
+
+But distinguish service coverage from physical office locations. Do not invent city lists.
+
+LOCATION
+Display:
+OM Transport Service & Commission Agent
+Aligarh–Kanpur Road
+Near Nayara Petrol Pump
+Panethi, Aligarh
+Uttar Pradesh – 202002
+
+Buttons:
+GET DIRECTIONS
+CALL NOW
+WHATSAPP
+
+Use the client-provided Google Maps link.
+
+INDUSTRIES
+Potential categories:
+- Construction
+- Manufacturing
+- Industrial Goods
+- Building Materials
+- Machinery
+- Steel
+- Agricultural Goods
+- Commercial Goods
+- Wholesale Businesses
+- Retail Distribution
+- Other Business Transportation Requirements
+
+Do not claim hazardous-material, refrigerated, oversized, or specialized handling unless confirmed.
+
+HOW IT WORKS
+1. Share Your Requirement
+2. Vehicle Arrangement
+3. Confirm Details
+4. Transportation
+
+WHY OM TRANSPORT
+Use verified characteristics:
+- Full & Part Load Options
+- Special Vehicle Arrangement
+- Multiple Vehicle Length Options
+- Commission Agent Network
+- All India Service
+- Direct Phone & WhatsApp Contact
+- Local Aligarh Presence
+- 24-Hour Enquiry Availability
+
+No fake statistics.
+
+OFFICE / BUSINESS PHOTOGRAPHS
+Use supplied real images:
+- Office exterior
+- Office interior
+- Proprietor/business representative
+- OM Transport signage
+- Business card
+- Location evidence where useful
+
+Do not make the proprietor photograph the primary hero image. Use truck/transport imagery for the main hero and a smaller proprietor section.
+
+PROPRIETOR
+Optional section:
+MEET THE PROPRIETOR
+Rahul Kumar
+Proprietor
+OM Transport Service & Commission Agent
+
+Do not invent a biography.
+
+BUSINESS INFORMATION
+Legal Name: RAHUL KUMAR
+Trade Name: OM TRANSPORT SERVICE AND COMMISSION AGENT
+Business Type: PROPRIETORSHIP
+GSTIN: 09DUMPK2053N1Z3
+GST Registration: REGULAR
+Principal Business Location:
+Aligarh–Kanpur Road, Near Nayara Petrol Pump, Panethi, Aligarh, Uttar Pradesh – 202002
+
+Do not publicly expose unnecessary contents of the GST certificate.
+
+PARTNER WITH OM TRANSPORT
+Create:
+PARTNER WITH OM TRANSPORT
+
+Subtitle:
+Own a commercial vehicle? Join our transportation network.
+
+Form:
+- Owner Name
+- Mobile Number
+- WhatsApp
+- Location
+- Vehicle Type
+- Vehicle Length
+- Vehicle Capacity
+- Number of Vehicles
+- Operating Routes
+- Availability
+- Additional Information
+
+CTA:
+JOIN OUR NETWORK
+
+Do not promise guaranteed work.
+
+BUSINESS EXPANSION
+Create:
+GROWING THE OM TRANSPORT NETWORK
+
+Suggested message:
+"OM Transport Service & Commission Agent aims to expand its transportation network, reach more business customers and connect more vehicle owners with genuine transportation requirements."
+
+Future areas:
+- More vehicle partners
+- More routes
+- More cities
+- More B2B customers
+- Digital transport enquiries
+- Fleet network expansion
+- Recurring business transportation
+- Better customer communication
+
+CTA:
+PARTNER WITH US
+
+FUTURE ARCHITECTURE
+Prepare for:
+- Vehicle database
+- Vehicle availability
+- Partner database
+- Transport enquiry CRM
+- Quotation generation
+- Customer accounts
+- Partner accounts
+- Recurring transport requests
+- Route management
+- Multiple city pages
+- Online booking
+- Transport tracking
+- Admin dashboard
+- Analytics
+
+Do not build unnecessary complexity in version 1.
+
+TECHNICAL DIRECTION
+Preferred:
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- PostgreSQL/Supabase if backend is required
+- Optimized image storage
+- Google Maps integration
+- WhatsApp integration
+
+Use the simplest production-ready architecture.
+
+SEO:
+Create:
+- SEO title
+- Meta description
+- Open Graph metadata
+- LocalBusiness structured data
+- Semantic headings
+- Image alt text
+- Sitemap
+- Robots.txt
+- Canonical URLs
+
+Potential local SEO terms:
+- OM Transport Service Aligarh
+- Transport Service in Aligarh
+- Transport Service Panethi
+- Truck Transport Aligarh
+- Heavy Transport Aligarh
+- Truck Booking Aligarh
+- Commission Agent Aligarh
+- Full Load Transport
+- Part Load Transport
+- Commercial Truck Service
+- All India Transport Service
+- Truck Transportation Uttar Pradesh
+- Transport Service Near Aligarh
+
+Do not keyword-stuff.
+
+MOBILE
+Use a sticky bottom CTA:
+CALL | WHATSAPP | REQUEST
+
+Make forms easy to complete on Android phones.
+
+SECURITY
+Implement:
+- Server-side validation
+- Input sanitization
+- Rate limiting
+- Anti-spam
+- Secure API routes
+- Environment variables
+- No exposed API keys
+- Secure database access
+- Proper error handling
+
+PERFORMANCE
+Optimize:
+- WebP/AVIF
+- Responsive images
+- Lazy loading
+- CSS/JS
+- Fonts
+- Caching
+- Code splitting
+
+ACCESSIBILITY
+Use:
+- Semantic HTML
+- Keyboard navigation
+- Proper labels
+- Alt text
+- Accessible buttons
+- Visible focus states
+- Good contrast
+
+FOOTER
+OM TRANSPORT SERVICE & COMMISSION AGENT
+
+Reliable transportation and vehicle-arrangement services from Panethi, Aligarh.
+
+Quick Links:
+Home | About | Services | Vehicle Options | Transport Quote | Locations | Partner With Us | Contact
+
+Business:
+Rahul Kumar
+Proprietor
+
+GSTIN:
+09DUMPK2053N1Z3
+
+Phone:
++91 9897270966
++91 7037870966
+
+Address:
+Aligarh–Kanpur Road
+Near Nayara Petrol Pump
+Panethi, Aligarh
+Uttar Pradesh – 202002
+
+CTA:
+CALL | WHATSAPP | GET DIRECTIONS
+
+FINAL QUALITY STANDARD
+The website must feel like a real established Indian transportation company preparing to grow digitally.
+
+It should NOT look like:
+- A college project
+- A generic AI website
+- A fake truck marketplace
+- An overdesigned startup landing page
+
+It SHOULD feel like:
+A trustworthy Indian transportation company with a strong local presence and ambitions to expand nationally.
+
+PRIMARY GOAL:
+GENERATE REAL TRANSPORT ENQUIRIES.
+
+PRIMARY ACTIONS:
+CALL
+WHATSAPP
+REQUEST A VEHICLE
+GET A QUOTE
+PARTNER WITH US
+
+Use the supplied photographs as real company assets.
+Use the supplied GST information only for verified business details.
+Use the supplied Google Maps location for the office.
+Do not fabricate missing information.
+Make the architecture scalable for future trucks, routes, cities, partners and services.
