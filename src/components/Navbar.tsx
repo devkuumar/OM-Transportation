@@ -43,7 +43,14 @@ export default function Navbar() {
       <div className="hidden md:flex bg-[#091630] text-white text-xs lg:text-sm px-4 sm:px-6 lg:px-8 py-2 justify-between items-center border-b border-white/5">
         <span className="flex items-center gap-2 text-gray-300 truncate">
           <span className="text-orange flex-shrink-0">📍</span>
-          <span className="truncate">Aligarh–Kanpur Road, Panethi, Aligarh, UP 202002</span>
+          <a
+            href={COMPANY.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="truncate hover:text-orange transition-colors"
+          >
+            {COMPANY.address.full}
+          </a>
         </span>
         <div className="flex items-center gap-4 lg:gap-6 flex-shrink-0">
           <a href={`tel:${COMPANY.phone1}`} className="flex items-center gap-1.5 hover:text-orange transition-colors">
@@ -144,7 +151,14 @@ export default function Navbar() {
                 Request a Vehicle Now
               </a>
               <div className="pt-4 mt-2 border-t border-white/10 text-xs text-gray-400 space-y-1">
-                <div>Aligarh–Kanpur Road, Panethi, Aligarh</div>
+                <a
+                  href={COMPANY.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block hover:text-orange transition-colors"
+                >
+                  📍 Aligarh–Kanpur Road, Panethi, Aligarh
+                </a>
                 <div className="text-orange font-bold">{COMPANY.phone1Display}</div>
               </div>
             </div>

@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       postalCode: COMPANY.address.pincode,
       addressCountry: 'IN',
     },
-    geo: { '@type': 'GeoCoordinates', latitude: 27.88, longitude: 78.08 },
+    geo: { '@type': 'GeoCoordinates', latitude: COMPANY.location.latitude, longitude: COMPANY.location.longitude },
     openingHours: 'Mo-Su 00:00-23:59',
     priceRange: '₹₹',
     currenciesAccepted: 'INR',

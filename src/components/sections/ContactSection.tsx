@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Phone, MessageCircle, MapPin, Navigation, Clock, Shield, Send, CheckCircle2 } from 'lucide-react';
 import { COMPANY, WHATSAPP_MESSAGE, WHATSAPP_URL } from '@/lib/config';
-
 export default function ContactSection() {
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
@@ -81,7 +80,7 @@ export default function ContactSection() {
                     </p>
                     <p className="text-xs text-gray-500 mt-0.5">Landmark: Near Nayara Petrol Pump, Panethi</p>
                     <a
-                      href={COMPANY.googleMapsUrl}
+                      href={COMPANY.googleMapsDirectionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-orange mt-2 hover:underline"

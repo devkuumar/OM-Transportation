@@ -86,7 +86,15 @@ export default function Footer() {
             <ul className="space-y-3.5 text-xs sm:text-sm">
               <li className="flex gap-2.5">
                 <MapPin size={16} className="text-orange flex-shrink-0 mt-0.5" />
-                <span className="text-gray-400 leading-relaxed">{COMPANY.address.full}</span>
+                {/* Clickable address — opens exact business location in Maps */}
+                <a
+                  href={COMPANY.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 leading-relaxed hover:text-orange transition-colors"
+                >
+                  {COMPANY.address.full}
+                </a>
               </li>
               <li>
                 <a href={`tel:${COMPANY.phone1}`} className="flex items-center gap-2.5 text-gray-400 hover:text-orange transition-colors">
@@ -107,7 +115,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={COMPANY.googleMapsUrl}
+                  href={COMPANY.googleMapsDirectionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-orange text-xs font-bold hover:underline inline-flex items-center gap-1"

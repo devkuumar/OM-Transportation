@@ -35,9 +35,23 @@ export const COMPANY = {
     full: 'Aligarh–Kanpur Road, Near Nayara Petrol Pump, Panethi, Aligarh, Uttar Pradesh – 202002',
   },
 
-  googleMapsUrl: 'https://maps.app.goo.gl/dinot76ZDZD8N1aU9',
+  // ── Business Location (Single Source of Truth) ────────────────────────────
+  // Exact coordinates resolved from: https://maps.app.goo.gl/VZQrP2NAwsxQkyZE6
+  location: {
+    latitude: 27.8479954,
+    longitude: 78.1726166,
+  },
+
+  // Authoritative Google Maps short link for the business pin
+  googleMapsUrl: 'https://maps.app.goo.gl/VZQrP2NAwsxQkyZE6',
+
+  // Navigation destination URL (opens Maps with this business as destination)
+  googleMapsDirectionsUrl:
+    'https://www.google.com/maps/dir/?api=1&destination=27.8479954,78.1726166',
+
+  // Embedded map iframe — centered on exact business coordinates, zoom 16
   googleMapsEmbed:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14170.!2d78.!3d27.!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDI2JzU5LjkiTiA3OMKwMDEnMjAuMCJF!5e0!3m2!1sen!2sin!4v1',
+    'https://maps.google.com/maps?q=27.8479954,78.1726166&z=16&output=embed',
 
   businessHours: 'Open 24 Hours – Enquiries Accepted Anytime',
 

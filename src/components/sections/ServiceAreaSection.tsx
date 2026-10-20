@@ -1,6 +1,11 @@
 import { MapPin, Navigation, Phone, MessageCircle, ExternalLink, Globe } from 'lucide-react';
 import { COMPANY, WHATSAPP_MESSAGE, WHATSAPP_URL } from '@/lib/config';
 
+// Single source of truth for Maps URLs — pulled directly from config
+const MAPS_SHARE_URL = COMPANY.googleMapsUrl;           // short link (share / open)
+const MAPS_DIRECTIONS_URL = COMPANY.googleMapsDirectionsUrl; // directions destination
+const MAPS_EMBED_URL = COMPANY.googleMapsEmbed;          // iframe embed
+
 export default function ServiceAreaSection() {
   const waMsg = WHATSAPP_URL(WHATSAPP_MESSAGE('Service Area Enquiry', 'Panethi / UP', 'Any Vehicle', 'Full Load'));
 
@@ -29,6 +34,23 @@ export default function ServiceAreaSection() {
                 {COMPANY.address.full}
               </p>
 
+              {/* Clickable address — tapping opens exact business location in Maps */}
+              <a
+                href={MAPS_SHARE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mt-2 mb-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 active:bg-white/15 transition-colors border border-white/10"
+                aria-label="Open business location in Google Maps"
+              >
+                <div className="flex items-start gap-2">
+                  <MapPin size={14} className="text-orange flex-shrink-0 mt-0.5" />
+                  <span className="text-xs text-gray-200 leading-relaxed">{COMPANY.address.full}</span>
+                </div>
+                <div className="text-[11px] text-orange mt-1.5 flex items-center gap-1">
+                  <ExternalLink size={10} /> Tap to open in Google Maps
+                </div>
+              </a>
+
               <div className="space-y-3 border-t border-white/10 pt-4 text-xs text-gray-300">
                 <div className="flex justify-between gap-2">
                   <span className="text-gray-400 flex-shrink-0">Landmark:</span>
@@ -37,6 +59,12 @@ export default function ServiceAreaSection() {
                 <div className="flex justify-between gap-2">
                   <span className="text-gray-400 flex-shrink-0">Highway Corridor:</span>
                   <span className="font-semibold text-white text-right">Aligarh–Kanpur Road</span>
+                </div>
+                <div className="flex justify-between gap-2">
+                  <span className="text-gray-400 flex-shrink-0">Coordinates:</span>
+                  <span className="font-semibold text-white text-right font-mono text-[10px]">
+                    {COMPANY.location.latitude}, {COMPANY.location.longitude}
+                  </span>
                 </div>
                 <div className="flex justify-between gap-2">
                   <span className="text-gray-400 flex-shrink-0">District:</span>
@@ -50,8 +78,9 @@ export default function ServiceAreaSection() {
             </div>
 
             <div className="mt-6 pt-5 border-t border-white/10 flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-2.5">
+              {/* "Get Directions" opens Maps with business as destination */}
               <a
-                href={COMPANY.googleMapsUrl}
+                href={MAPS_DIRECTIONS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 bg-orange hover:bg-orange-dark active:bg-orange-dark text-white font-bold py-3 px-4 rounded-xl text-xs transition-colors shadow-md shadow-orange/30 min-h-[42px]"
@@ -123,10 +152,10 @@ export default function ServiceAreaSection() {
         <div className="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border border-gray-200 shadow-sm overflow-hidden">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-3 px-2 gap-2">
             <span className="text-[11px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Google Maps Location — Aligarh Kanpur Road, Panethi
+              Business Location — Panethi, Aligarh ({COMPANY.location.latitude}, {COMPANY.location.longitude})
             </span>
             <a
-              href={COMPANY.googleMapsUrl}
+              href={MAPS_SHARE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs font-semibold text-orange hover:underline flex items-center gap-1"
@@ -136,14 +165,14 @@ export default function ServiceAreaSection() {
           </div>
           <div className="w-full h-64 sm:h-80 md:h-96 rounded-xl sm:rounded-2xl overflow-hidden bg-gray-100">
             <iframe
-              src="https://maps.google.com/maps?q=Aligarh+Kanpur+Road,+Panethi,+Aligarh,+Uttar+Pradesh+202002&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              src={MAPS_EMBED_URL}
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="OM Transport Location Map"
+              title="OM Transport Service Location — Panethi, Aligarh"
             />
           </div>
         </div>
