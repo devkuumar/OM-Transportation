@@ -39,6 +39,10 @@ export const metadata: Metadata = {
     description: COMPANY.seo.description,
     images: [COMPANY.seo.ogImage],
   },
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
   robots: { index: true, follow: true },
 };
 

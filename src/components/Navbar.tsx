@@ -1,7 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Phone, Truck } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X, Phone } from 'lucide-react';
 import { COMPANY } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
@@ -74,11 +75,18 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 sm:h-18">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0 min-w-0">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-orange rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm shadow-orange/30">
-                <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-white" strokeWidth={2.5} />
+              <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-orange/60 shadow-md shadow-black/40 group-hover:ring-orange transition-all bg-[#091630]">
+                <Image
+                  src="/logo.png"
+                  alt="OM Transport Service & Commission Agent Logo"
+                  width={44}
+                  height={44}
+                  priority
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                />
               </div>
               <div className="leading-tight min-w-0">
-                <div className="text-white font-black text-sm sm:text-base tracking-wide leading-none truncate">
+                <div className="text-white font-black text-sm sm:text-base tracking-wide leading-none truncate group-hover:text-orange transition-colors">
                   OM TRANSPORT
                 </div>
                 <div className="text-orange text-[9px] sm:text-[11px] font-bold tracking-wider leading-none mt-1 uppercase truncate">

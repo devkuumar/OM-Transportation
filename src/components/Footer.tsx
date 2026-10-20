@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, MapPin, Truck, MessageCircle, Mail, FileText } from 'lucide-react';
 import { COMPANY, WHATSAPP_MESSAGE, WHATSAPP_URL } from '@/lib/config';
 
@@ -21,8 +22,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-orange rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm shadow-orange/30">
-                <Truck className="w-6 h-6 text-white" strokeWidth={2.5} />
+              <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-orange/60 shadow-md shadow-black/40 bg-[#091630]">
+                <Image
+                  src="/logo.png"
+                  alt="OM Transport Service & Commission Agent Logo"
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <div className="font-black text-base sm:text-lg tracking-wide">OM TRANSPORT</div>
