@@ -26,13 +26,20 @@ export default function HeroSection() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column */}
         <div className="lg:col-span-7 animate-fade-up">
-          {/* Location pill */}
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 mb-4 sm:mb-6">
-            <MapPin size={12} className="text-orange flex-shrink-0" />
-            <span className="text-gray-300 text-[11px] sm:text-xs font-semibold tracking-wide truncate">
+          {/* Location pill - clickable link to business Google Maps */}
+          <a
+            href={COMPANY.googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 active:bg-white/25 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 mb-4 sm:mb-6 transition-all group cursor-pointer"
+            title="Open OM Transport location in Google Maps"
+            aria-label="Open OM Transport location in Google Maps"
+          >
+            <MapPin size={12} className="text-orange flex-shrink-0 group-hover:scale-110 transition-transform" />
+            <span className="text-gray-300 group-hover:text-white text-[11px] sm:text-xs font-semibold tracking-wide truncate transition-colors">
               Panethi, Aligarh, Uttar Pradesh
             </span>
-          </div>
+          </a>
 
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.15] tracking-tight mb-4">
             OM TRANSPORT
