@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { Truck, Send, CheckCircle2, AlertCircle, Phone, MessageCircle, Calendar, MapPin, Package, ShieldCheck } from 'lucide-react';
-import { COMPANY, WHATSAPP_MESSAGE, WHATSAPP_URL } from '@/lib/config';
+import { Truck, MessageCircle, AlertCircle, Phone, Calendar, MapPin, ShieldCheck } from 'lucide-react';
+import { COMPANY, buildTransportQuoteWhatsAppUrl } from '@/lib/config';
 
 export default function QuoteSection() {
   const [formData, setFormData] = useState({
@@ -23,57 +23,43 @@ export default function QuoteSection() {
     honeypot: '', // anti-spam
   });
 
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    // Basic honeypot check
+    // Anti-spam honeypot check
     if (formData.honeypot) {
       return;
     }
 
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.pickup.trim() || !formData.delivery.trim()) {
-      setError('Please fill in all mandatory fields: Full Name, Phone, Pickup Location, and Delivery Location.');
+    // Validate required fields (Pickup & Delivery)
+    if (!formData.pickup.trim() || !formData.delivery.trim()) {
+      setError('Please fill in required fields: Pickup Location and Delivery Location.');
       return;
     }
 
-    setLoading(true);
+    // 1. Generate professional WhatsApp click-to-chat URL with pre-filled message
+    const whatsappUrl = buildTransportQuoteWhatsAppUrl(formData);
 
+    // 2. Open WhatsApp (app on mobile, WhatsApp Web on desktop)
+    const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+      window.location.href = whatsappUrl;
+    }
+
+    // 3. Silently record lead to server in background without blocking WhatsApp flow
     try {
-      const res = await fetch('/api/quote', {
+      fetch('/api/quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setSuccess(true);
-      } else {
-        setError(data.message || 'Something went wrong. Please call us directly.');
-      }
-    } catch (err) {
-      // Even if network fails, client can proceed to WhatsApp
-      setSuccess(true);
-    } finally {
-      setLoading(false);
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      // Ignore background logging errors
     }
-  };
-
-  const getWaLink = () => {
-    return WHATSAPP_URL(
-      WHATSAPP_MESSAGE(
-        formData.pickup || 'Pickup City',
-        formData.delivery || 'Delivery City',
-        formData.vehicleType || 'Any',
-        formData.loadType === 'full' ? 'Full Load' : formData.loadType === 'part' ? 'Part Load' : 'Special Vehicle'
-      )
-    );
   };
 
   return (
@@ -143,282 +129,218 @@ export default function QuoteSection() {
           {/* Right form card */}
           <div className="lg:col-span-7">
             <div className="bg-white rounded-2xl p-6 sm:p-8 text-charcoal shadow-2xl relative">
-              {success ? (
-                <div className="text-center py-10">
-                  <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <CheckCircle2 size={36} />
+              <form noValidate onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-2">
+                    <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
+                    <span>{error}</span>
                   </div>
-                  <h3 className="text-2xl font-bold text-charcoal mb-2">Requirement Submitted!</h3>
-                  <p className="text-gray-600 text-sm max-w-md mx-auto mb-6 leading-relaxed">
-                    Thank you. We have received your transportation enquiry. Our team will review vehicle availability and contact you shortly.
-                  </p>
-                  
-                  <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 max-w-md mx-auto mb-6 text-left text-xs text-gray-600 space-y-1">
-                    <div><strong>Route:</strong> {formData.pickup} → {formData.delivery}</div>
-                    {formData.vehicleType && <div><strong>Vehicle:</strong> {formData.vehicleType}</div>}
-                    <div><strong>Contact:</strong> {formData.phone}</div>
-                  </div>
+                )}
 
-                  <div className="flex flex-col sm:flex-row justify-center gap-3">
-                    <a
-                      href={getWaLink()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl text-sm transition-colors"
-                    >
-                      <MessageCircle size={16} /> Open in WhatsApp
-                    </a>
-                    <button
-                      onClick={() => {
-                        setSuccess(false);
-                        setFormData({
-                          name: '',
-                          company: '',
-                          phone: '',
-                          whatsapp: '',
-                          email: '',
-                          pickup: '',
-                          delivery: '',
-                          pickupDate: '',
-                          vehicleType: '',
-                          loadType: 'full',
-                          cargoType: '',
-                          approxWeight: '',
-                          dimensions: '',
-                          vehicleCount: '1',
-                          notes: '',
-                          honeypot: '',
-                        });
-                      }}
-                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-100 transition-colors"
-                    >
-                      Submit Another Requirement
-                    </button>
+                {/* Honeypot field for anti-spam */}
+                <input
+                  type="text"
+                  name="website_url"
+                  value={formData.honeypot}
+                  onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
+                {/* Section 1: Customer Details */}
+                <div>
+                  <h4 className="text-xs font-bold text-orange uppercase tracking-wider mb-3">1. Contact Information</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="e.g. Ramesh Sharma"
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        Company / Business Name
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        placeholder="e.g. Sharma Traders (optional)"
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        Mobile Number
+                      </label>
+                      <input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="10-digit mobile number"
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        WhatsApp Number
+                      </label>
+                      <input
+                        type="tel"
+                        value={formData.whatsapp}
+                        onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                        placeholder="Same as mobile or WhatsApp (optional)"
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
                   </div>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {error && (
-                    <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm flex items-start gap-2">
-                      <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
-                      <span>{error}</span>
-                    </div>
-                  )}
 
-                  {/* Honeypot field for anti-spam */}
-                  <input
-                    type="text"
-                    name="website_url"
-                    value={formData.honeypot}
-                    onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
-                    className="hidden"
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
-
-                  {/* Section 1: Customer Details */}
-                  <div>
-                    <h4 className="text-xs font-bold text-orange uppercase tracking-wider mb-3">1. Contact Information</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          Full Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="e.g. Ramesh Sharma"
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          Company / Business Name
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.company}
-                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          placeholder="e.g. Sharma Traders (optional)"
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          Mobile Number <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="10-digit mobile number"
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          WhatsApp Number
-                        </label>
-                        <input
-                          type="tel"
-                          value={formData.whatsapp}
-                          onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                          placeholder="Same as mobile or WhatsApp (optional)"
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Section 2: Route Details */}
-                  <div className="pt-2 border-t border-gray-100">
-                    <h4 className="text-xs font-bold text-orange uppercase tracking-wider mb-3">2. Route & Schedule</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1 flex items-center gap-1">
-                          <MapPin size={12} className="text-orange" /> Pickup Location <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.pickup}
-                          onChange={(e) => setFormData({ ...formData, pickup: e.target.value })}
-                          placeholder="City / District / Area"
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1 flex items-center gap-1">
-                          <MapPin size={12} className="text-orange" /> Delivery Location <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={formData.delivery}
-                          onChange={(e) => setFormData({ ...formData, delivery: e.target.value })}
-                          placeholder="Destination City / State"
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1 flex items-center gap-1">
-                          <Calendar size={12} className="text-gray-400" /> Preferred Pickup Date
-                        </label>
-                        <input
-                          type="date"
-                          value={formData.pickupDate}
-                          onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          Load Type
-                        </label>
-                        <select
-                          value={formData.loadType}
-                          onChange={(e) => setFormData({ ...formData, loadType: e.target.value })}
-                          className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none bg-white"
-                        >
-                          <option value="full">Full Truck Load (Dedicated)</option>
-                          <option value="part">Part Load (Consolidation)</option>
-                          <option value="special">Special Vehicle</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Section 3: Cargo & Vehicle Requirements */}
-                  <div className="pt-2 border-t border-gray-100">
-                    <h4 className="text-xs font-bold text-orange uppercase tracking-wider mb-3">3. Vehicle & Cargo Details</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          Vehicle Type
-                        </label>
-                        <select
-                          value={formData.vehicleType}
-                          onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
-                          className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none bg-white"
-                        >
-                          <option value="">Any / Suggest Suitable</option>
-                          {COMPANY.vehicles.map((v) => (
-                            <option key={v} value={v}>{v}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          Approx. Weight
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.approxWeight}
-                          onChange={(e) => setFormData({ ...formData, approxWeight: e.target.value })}
-                          placeholder="e.g. 5 Tonnes / 500 kg"
-                          className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-700 mb-1">
-                          Cargo / Material Type
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.cargoType}
-                          onChange={(e) => setFormData({ ...formData, cargoType: e.target.value })}
-                          placeholder="e.g. Machinery, Steel, Cartons"
-                          className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-4">
-                      <label className="block text-xs font-semibold text-gray-700 mb-1">
-                        Special Instructions / Loading Notes
+                {/* Section 2: Route Details */}
+                <div className="pt-2 border-t border-gray-100">
+                  <h4 className="text-xs font-bold text-orange uppercase tracking-wider mb-3">2. Route & Schedule</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                        <MapPin size={12} className="text-orange" /> Pickup Location <span className="text-red-500">*</span>
                       </label>
-                      <textarea
-                        rows={3}
-                        value={formData.notes}
-                        onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                        placeholder="Mention any cargo dimensions, loading/unloading requirements, or specific vehicle preferences..."
-                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none resize-none"
+                      <input
+                        type="text"
+                        required
+                        value={formData.pickup}
+                        onChange={(e) => setFormData({ ...formData, pickup: e.target.value })}
+                        placeholder="City / District / Area"
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                        <MapPin size={12} className="text-orange" /> Delivery Location <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.delivery}
+                        onChange={(e) => setFormData({ ...formData, delivery: e.target.value })}
+                        placeholder="Destination City / State"
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1 flex items-center gap-1">
+                        <Calendar size={12} className="text-gray-400" /> Preferred Pickup Date
+                      </label>
+                      <input
+                        type="date"
+                        value={formData.pickupDate}
+                        onChange={(e) => setFormData({ ...formData, pickupDate: e.target.value })}
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        Load Type
+                      </label>
+                      <select
+                        value={formData.loadType}
+                        onChange={(e) => setFormData({ ...formData, loadType: e.target.value })}
+                        className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none bg-white"
+                      >
+                        <option value="full">Full Truck Load (Dedicated)</option>
+                        <option value="part">Part Load (Consolidation)</option>
+                        <option value="special">Special Vehicle</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section 3: Cargo & Vehicle Requirements */}
+                <div className="pt-2 border-t border-gray-100">
+                  <h4 className="text-xs font-bold text-orange uppercase tracking-wider mb-3">3. Vehicle & Cargo Details</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        Vehicle Type
+                      </label>
+                      <select
+                        value={formData.vehicleType}
+                        onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none bg-white"
+                      >
+                        <option value="">Any / Suggest Suitable</option>
+                        {COMPANY.vehicles.map((v) => (
+                          <option key={v} value={v}>{v}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        Approx. Weight
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.approxWeight}
+                        onChange={(e) => setFormData({ ...formData, approxWeight: e.target.value })}
+                        placeholder="e.g. 5 Tonnes / 500 kg"
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-700 mb-1">
+                        Cargo / Material Type
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.cargoType}
+                        onChange={(e) => setFormData({ ...formData, cargoType: e.target.value })}
+                        placeholder="e.g. Machinery, Steel, Cartons"
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none"
                       />
                     </div>
                   </div>
 
-                  {/* Submit CTA */}
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={loading}
-                      className="w-full bg-orange hover:bg-orange-dark text-white font-bold py-4 rounded-xl text-base transition-all shadow-lg hover:shadow-orange/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
-                    >
-                      {loading ? (
-                        <span>Processing Requirement...</span>
-                      ) : (
-                        <>
-                          <Send size={18} /> Request Transport Quote
-                        </>
-                      )}
-                    </button>
-                    <p className="text-center text-xs text-gray-400 mt-3">
-                      We respect your privacy. Details are only used to calculate and communicate your freight quotation.
-                    </p>
+                  <div className="mt-4">
+                    <label className="block text-xs font-semibold text-gray-700 mb-1">
+                      Special Instructions / Loading Notes
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.notes}
+                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      placeholder="Mention any cargo dimensions, loading/unloading requirements, or specific vehicle preferences..."
+                      className="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-charcoal focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none resize-none"
+                    />
                   </div>
-                </form>
-              )}
+                </div>
+
+                {/* Submit CTA */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="w-full bg-orange hover:bg-orange-dark active:bg-orange-dark text-white font-bold py-4 rounded-xl text-base transition-all shadow-lg hover:shadow-orange/30 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <MessageCircle size={18} /> Request Transport Quote
+                  </button>
+                  <p className="text-center text-xs text-gray-400 mt-3">
+                    Clicking will open WhatsApp with your requirement details pre-filled. You can review before sending.
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
 

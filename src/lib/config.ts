@@ -1,5 +1,6 @@
 // OM Transport Service & Commission Agent — Central Configuration
-// Update this file to reflect actual business information.
+// Centralized business WhatsApp number in international format (no +, spaces, hyphens, or brackets)
+export const BUSINESS_WHATSAPP_NUMBER = '919897270966';
 
 export const COMPANY = {
   name: 'OM Transport Service & Commission Agent',
@@ -18,7 +19,7 @@ export const COMPANY = {
   phone2: '+917037870966',
   phone2Display: '+91 70378 70966',
 
-  whatsapp: '919897270966',
+  whatsapp: BUSINESS_WHATSAPP_NUMBER,
   whatsappDisplay: '+91 98972 70966',
 
   email: '', // Add when available
@@ -68,10 +69,106 @@ export const COMPANY = {
   },
 } as const;
 
-export const WHATSAPP_MESSAGE = (pickup = '[Pickup Location]', delivery = '[Delivery Location]', vehicle = '[Vehicle Type]', load = '[Full / Part Load]') =>
+// Default helper for generic CTAs
+export const WHATSAPP_MESSAGE = (
+  pickup = '[Pickup Location]',
+  delivery = '[Delivery Location]',
+  vehicle = '[Vehicle Type]',
+  load = '[Full / Part Load]'
+) =>
   encodeURIComponent(
     `Hello OM Transport Service & Commission Agent,\n\nI need a vehicle for transportation.\n\nPickup: ${pickup}\nDelivery: ${delivery}\nVehicle Required: ${vehicle}\nLoad Type: ${load}\n\nPlease provide availability and quotation.\n\nThank you.`
   );
 
 export const WHATSAPP_URL = (message: string) =>
   `https://wa.me/${COMPANY.whatsapp}?text=${message}`;
+
+// Helper to generate the exact professional WhatsApp message for the transport quote form
+export function buildTransportQuoteWhatsAppUrl(data: {
+  pickup?: string;
+  delivery?: string;
+  pickupDate?: string;
+  loadType?: string;
+  vehicleType?: string;
+  approxWeight?: string;
+  cargoType?: string;
+  notes?: string;
+}): string {
+  const lines: string[] = [
+    'Hello OM Transport Service & Commission Agent,',
+    '',
+    'I would like to request a transport quotation.',
+  ];
+
+  // Locations (Pickup & Delivery)
+  const locLines: string[] = [];
+  if (data.pickup && data.pickup.trim()) {
+    locLines.push(`📍 Pickup Location: ${data.pickup.trim()}`);
+  }
+  if (data.delivery && data.delivery.trim()) {
+    locLines.push(`📍 Delivery Location: ${data.delivery.trim()}`);
+  }
+  if (locLines.length > 0) {
+    lines.push('');
+    lines.push(locLines.join('\n'));
+  }
+
+  // Preferred Pickup Date (format YYYY-MM-DD -> DD/MM/YYYY if needed)
+  if (data.pickupDate && data.pickupDate.trim()) {
+    let dateStr = data.pickupDate.trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+      const [y, m, d] = dateStr.split('-');
+      dateStr = `${d}/${m}/${y}`;
+    }
+    lines.push('');
+    lines.push(`📅 Preferred Pickup Date: ${dateStr}`);
+  }
+
+  // Load Type
+  if (data.loadType && data.loadType.trim()) {
+    let loadStr = data.loadType.trim();
+    if (loadStr === 'full') loadStr = 'Full Truck Load';
+    else if (loadStr === 'part') loadStr = 'Part Load';
+    else if (loadStr === 'special') loadStr = 'Special Vehicle';
+    lines.push('');
+    lines.push(`🚛 Load Type: ${loadStr}`);
+  }
+
+  // Vehicle Type (omit if empty or placeholder)
+  if (
+    data.vehicleType &&
+    data.vehicleType.trim() &&
+    data.vehicleType.trim() !== 'Any / Suggest Suitable'
+  ) {
+    lines.push('');
+    lines.push(`🚚 Vehicle Type: ${data.vehicleType.trim()}`);
+  }
+
+  // Approx. Weight (omit if empty)
+  if (data.approxWeight && data.approxWeight.trim()) {
+    lines.push('');
+    lines.push(`⚖️ Approx. Weight: ${data.approxWeight.trim()}`);
+  }
+
+  // Cargo / Material Type (omit if empty)
+  if (data.cargoType && data.cargoType.trim()) {
+    lines.push('');
+    lines.push(`📦 Cargo / Material: ${data.cargoType.trim()}`);
+  }
+
+  // Special Instructions (omit if empty)
+  if (data.notes && data.notes.trim()) {
+    lines.push('');
+    lines.push(`📝 Special Instructions:\n${data.notes.trim()}`);
+  }
+
+  // Closing
+  lines.push('');
+  lines.push('Please provide me with the available vehicle and transport quotation.');
+  lines.push('');
+  lines.push('Thank you.');
+
+  const fullMessage = lines.join('\n');
+  const cleanNumber = BUSINESS_WHATSAPP_NUMBER.replace(/\D/g, '');
+  return `https://wa.me/${cleanNumber}?text=${encodeURIComponent(fullMessage)}`;
+}
